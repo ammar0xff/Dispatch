@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "786199623818",
+    "firebase_url": "https://wirya-qr-default-rtdb.firebaseio.com",
+    "project_id": "wirya-qr",
+    "storage_bucket": "wirya-qr.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:786199623818:android:1399fd935c2b19a7255573",
+        "android_client_info": {
+          "package_name": "com.example.wirya_qr_admin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBI45YfAjq-G9WALcOvV1nAGnXYj4yR0Hc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:786199623818:android:db4120dd2a0b417c255573",
+        "android_client_info": {
+          "package_name": "com.example.wirya_qr_client"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBI45YfAjq-G9WALcOvV1nAGnXYj4yR0Hc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
