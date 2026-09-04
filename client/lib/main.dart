@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -29,8 +30,10 @@ void main() async {
 
     // Request necessary permissions
     await requestLocationPermission();
-    await PermissionsHandler.requestPermissions();
-    await disableBatteryOptimization();
+    if (!kIsWeb) {
+      await PermissionsHandler.requestPermissions();
+      await disableBatteryOptimization();
+    }
 
     // Check if the app is locked
     final bool isLocked = await checkIfLocked();
@@ -49,7 +52,7 @@ void main() async {
     runApp(QRClientApp(initialScreen: initialScreen));
 
     // Initialize background services if the app is not locked
-    if (!isLocked) {
+    if (!kIsWeb && !isLocked) {
       await requestNotificationPermission();
       await initializeService();
 
