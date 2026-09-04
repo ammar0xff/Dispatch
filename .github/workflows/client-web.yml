@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "client/**"
+      - "landing/**"
       - ".github/workflows/client-web.yml"
 
 permissions:
@@ -32,12 +33,18 @@ jobs:
 
       - name: Build client web
         working-directory: client
-        run: flutter build web --release
+        run: flutter build web --release --base-href /Dispatch/client/
 
-      - name: Deploy to GitHub Pages (/client)
+      - name: Prepare deploy directory
+        run: |
+          mkdir -p _site/client
+          cp -r client/build/web/* _site/client/
+          mkdir -p _site
+          cp landing/index.html _site/index.html
+
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: client/build/web
-          destination_dir: client
+          publish_dir: _site
           keep_files: true

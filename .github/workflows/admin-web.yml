@@ -32,7 +32,7 @@ jobs:
 
       - name: Build admin web
         working-directory: admin
-        run: flutter build web --release
+        run: flutter build web --release --base-href /Dispatch/admin/
 
       - name: Deploy to GitHub Pages (/admin)
         uses: peaceiris/actions-gh-pages@v4

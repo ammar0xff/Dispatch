@@ -1,0 +1,57 @@
+name: release
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "client/**"
+      - "admin/**"
+      - ".github/workflows/release.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Install client dependencies
+        working-directory: client
+        run: flutter pub get
+
+      - name: Install admin dependencies
+        working-directory: admin
+        run: flutter pub get
+
+      - name: Build client APK
+        working-directory: client
+        run: flutter build apk --release --android-skip-build-dependency-validation
+
+      - name: Build admin APK
+        working-directory: admin
+        run: flutter build apk --release --android-skip-build-dependency-validation
+
+      - name: Rename APKs
+        run: |
+          cp client/build/app/outputs/flutter-apk/app-release.apk client.apk
+          cp admin/build/app/outputs/flutter-apk/app-release.apk admin.apk
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.0
+          name: "Dispatch v1.0.0"
+          body: |
+            QR-based field-work supervision platform.
+
+            **Agent app (`client.apk`)** — scan QR codes on site, report GPS, view tasks.
+            **Supervisor dashboard (`admin.apk`)** — generate QR codes, manage users, live map.
+          files: |
+            client.apk
+            admin.apk
