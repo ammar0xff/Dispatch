@@ -1,0 +1,39 @@
+name: client-web
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "client/**"
+      - ".github/workflows/client-web.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Install client dependencies
+        working-directory: client
+        run: flutter pub get
+
+      - name: Build client web
+        working-directory: client
+        run: flutter build web --release
+
+      - name: Deploy to GitHub Pages (/client)
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: client/build/web
+          destination_dir: client
+          keep_files: true
