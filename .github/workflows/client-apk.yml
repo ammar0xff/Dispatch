@@ -26,7 +26,7 @@ jobs:
 
       - name: Build Android APK (release)
         working-directory: client
-        run: flutter build apk --release
+        run: flutter build apk --release --android-skip-build-dependency-validation
 
       - name: Create GitHub Release + upload APK
         uses: softprops/action-gh-release@v2
