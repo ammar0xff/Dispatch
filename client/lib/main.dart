@@ -263,12 +263,12 @@ class _MainScreenState extends State<MainScreen> with SingleTickerProviderStateM
     });
   }
 
-  static final List<Widget> _widgetOptions = <Widget>[
-    DashboardScreen(user: 'user'), // Replace with actual user
-    const TasksScreen(),
-    QRScannerScreen(),
-    AboutScreen(),
-  ];
+  List<Widget> get _widgetOptions => <Widget>[
+        DashboardScreen(user: widget.user),
+        const TasksScreen(),
+        QRScannerScreen(),
+        AboutScreen(),
+      ];
 
   void _onItemTapped(int index) {
     setState(() {
